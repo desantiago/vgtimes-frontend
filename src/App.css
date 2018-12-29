@@ -323,3 +323,32 @@ h3 { margin: 0px; margin-top: 8px; margin-bottom: 8px; }
 .slidedown {            
   max-height: 700px ;                    
 }
+
+
+@media only screen and  (max-width: 568px)  { 
+  .movil100 { width : 100%; }  
+  h2 { font-family: 'Comfortaa'; color:#585858; margin-left: 0.2em; margin-right: 0.2em; } 
+  h2 a { font-size:0.8em; }  
+  .header { text-align: center; padding-top: 20px; padding-bottom: 20px; font-size: 2.0em; border-bottom: 1px solid #eaeaea; }  
+  .textcont { font-family: 'Raleway'; margin-top: 5px; margin-left: 0.3em; margin-right: 0.3em; font-size: 1.0em;  text-align: justify; text-justify: inter-word;  }   
+  .textcont-noimage { font-family: 'Raleway'; margin-top: 5px; margin-left: 0.3em; margin-right: 0.3em; font-size: 1.0em; text-align: justify; text-justify: inter-word;  }  
+  .textblock { letter-spacing : 0; }  
+  .textblock span { font-size : 0.8em; color:#0099CC; font-weight : bold; }  
+  .footnote { margin-left: 0.4em; margin-right: 0.3em; font-size: 0.8em; }  
+  .fecha { font-size : 1.3em; background-color : #eaeaea; text-align:center; padding-top:1.0em; padding-bottom:1.0em; }  
+  .thumbnail { position: relative;  width: 150px; height: 150px; overflow: hidden; margin-top:0.5em; } 
+  .thumbnail img { position: absolute; left: 50%; top: 50%; height: 100%; width: auto; -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); transform: translate(-50%,-50%); } 
+  .thumbnail img.portrait { width: 100%; height: auto; }  
+}
+
+@media only screen and (min-width: 569px)  { 
+  .card .imgcont { height: 170px; }  
+  h2 { font-family: 'Comfortaa'; color:#585858; }  
+  .header { text-align: center; padding-top: 40px; padding-bottom: 40px; font-size: 4.0em; border-bottom: 1px solid #eaeaea; }  
+  .textcont { font-family: 'Raleway'; margin-top: 0px; margin-left: 1.0em; font-size: 1.1em;  text-align: justify; text-justify: inter-word;   }   
+  .textcont-noimage { font-family: 'Raleway'; margin-top: 0px; margin-left: 0.0em; font-size: 1.1em;  text-align: justify; text-justify: inter-word;   }  
+  .textblock { position: relative; min-height: 100px; }  
+  .textblock span { font-size : 0.8em; color:#0099CC; font-weight : bold; }  
+  .footnote { position: absolute; bottom: 0px; right: 25px; font-size: 0.8em; }  
+  .fecha { font-size : 2.0em; background-color : #eaeaea; text-align:center; } 
+}

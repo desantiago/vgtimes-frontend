@@ -19,9 +19,17 @@ class ConnectedNews extends Component {
     }
 
     render() {
-        const { news } = this.props;
-        console.log(news);
-        //            gameList.map( game => {
+        let { news } = this.props;
+        //console.log(news);
+
+        news = news.map( post => {
+            let p = post;
+            if (post.nameFeed !== "universo-nintendo" && post.nameFeed !== "levelup") {
+                p.mainimage = "http://www.vgtimes.press/"+p.mainimage
+            }
+
+            return p;
+        })
 
         return (
             <div >
@@ -29,13 +37,23 @@ class ConnectedNews extends Component {
                 {
                     news.map( post => {
 
-                        if (post.mainimage !== "no") {
+                        if (post.mainimage === "no") {
                             return (
                                 <div className="pure-g">
                                     <div className="pure-u-1-1 pure-u-sm-1-1">
                                         <h2>
                                             { post.title }
                                         </h2>
+                                    </div>
+                                    <div className="pure-u-5-5">
+                                        <div className="textblock">
+                                            <p className="textcont-noimage">
+                                                { post.description }
+                                            </p>
+                                            <div className="footnote">
+                                                <span className="feedname"> {post.nameFeed } </span><span className="datefeed"> { post.formattedDate } </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             )
@@ -47,6 +65,23 @@ class ConnectedNews extends Component {
                                         <h2>
                                             { post.title }
                                         </h2>
+                                    </div>
+
+                                    <div className="pure-u-md-1-5 pure-u-sm-1-1 movil100">
+                                        <div class="imgcont">
+                                            <img src={post.mainimage} alt={post.title} />
+                                        </div>
+                                    </div>
+
+                                    <div className="pure-u-md-4-5 pure-u-sm-1-1">
+                                        <div className="textblock">
+                                            <p className="textcont-noimage">
+                                                { post.description }
+                                            </p>
+                                            <div className="footnote">
+                                                <span className="feedname"> {post.nameFeed } </span><span className="datefeed"> { post.formattedDate } </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             )
