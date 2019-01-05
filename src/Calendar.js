@@ -17,12 +17,14 @@ const mapDispatchToProps = dispatch => {
 
 class ConnectedCalendar extends Component {
 
+    /*
     constructor() {
         super();
 
         this.onSelectDay = this.onSelectDay.bind(this);
     }
-
+    */
+   
     getResDay(day, month, year) {
         /*
         fetch('http://172.16.100.25:8125/resdia/res-20181214.json', {
@@ -74,7 +76,7 @@ class ConnectedCalendar extends Component {
         });
     }
 
-    onSelectDay(day) {
+    onSelectDay = (day) => {
         //console.log("Dia seleccionado ", day);
         //console.log(day.getDate());
         //console.log(day.getDate(), day.getMonth()+1, day.getFullYear());

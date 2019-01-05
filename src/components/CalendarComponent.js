@@ -1,5 +1,6 @@
 import React from "react";
 import dateFns from "date-fns";
+const esLocale = require('date-fns/locale/es')
 
 class CalendarComponent extends React.Component {
 
@@ -8,10 +9,9 @@ class CalendarComponent extends React.Component {
         selectedDate: new Date()
     };
 
-    constructor() {
-        super();
-
-        this.onDateClick.bind(this);
+    componentDidMount() {
+        console.log("cargamos el resumen de ahora");
+        this.props.onSelectDay(new Date());
     }
 
     renderHeader() {
@@ -25,7 +25,7 @@ class CalendarComponent extends React.Component {
                 </div>
                 <div className="col col-center">
                     <span>
-                        {dateFns.format(this.state.currentMonth, dateFormat)}
+                        {dateFns.format(this.state.currentMonth, dateFormat, { locale: esLocale })}
                     </span>
                 </div>
                 <div className="col col-end" onClick={this.nextMonth}>
@@ -42,7 +42,7 @@ class CalendarComponent extends React.Component {
         for (let i = 0; i < 7; i++) {
             days.push(
                 <div className="col col-center" key={i}>
-                    {dateFns.format(dateFns.addDays(startDate, i), dateFormat)}
+                    {dateFns.format(dateFns.addDays(startDate, i), dateFormat, { locale: esLocale })}
                 </div>
             );
         }
@@ -67,7 +67,7 @@ class CalendarComponent extends React.Component {
     
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
-                formattedDate = dateFns.format(day, dateFormat);
+                formattedDate = dateFns.format(day, dateFormat, { locale: esLocale });
                 const cloneDay = day;
                 days.push(
                     <div

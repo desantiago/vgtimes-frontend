@@ -12,7 +12,7 @@ class Model {
             }
         })
         .then( response => {
-            console.log('ya en la respuesta');
+            //console.log('ya en la respuesta');
             if (!response.ok) {
                 //throw Error(response.statusText);
                 return Promise.reject({ error: response.statusText, status: response.status})

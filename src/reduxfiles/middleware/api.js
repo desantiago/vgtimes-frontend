@@ -15,10 +15,22 @@ const apiMiddleware = store => next => action => {
         .then( res => {
 
             //console.log(res);
-            var gameList = res.map( item => {
-                item.imagen = URL + item.imagen;
-                return item;
-            });
+            if (res.type === "resumen") {
+                var gameList = res.data.map( item => {
+                    item.imagen = URL + item.imagen;
+                    return item;
+                });
+
+                res.data = gameList;
+            }
+            else {
+                var gameList = res.data.map( item => {                    
+                    item.imagen = item.imagen !== 'no' ? URL + "thumb/thumb_"+item.imagen : item.imagen;
+                    return item;
+                });
+
+                res.data = gameList;
+            }
 
             //this.props.changeDay(gameList);
             /*
@@ -41,7 +53,7 @@ const apiMiddleware = store => next => action => {
             */
 
             let newPayload = Object.assign({}, action.payload, {
-                resday: gameList
+                resday: res
             });
 
             store.dispatch({
