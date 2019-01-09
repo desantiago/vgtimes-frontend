@@ -386,10 +386,50 @@ img {
   text-align: center;
   font-weight: bold;
   padding-top: 0.5rem;
+  margin-bottom: 1.0rem;
 }
 
 .resday { padding: 1.0rem; }
-.resday .pure-g { border: 1px solid #eaeaea; margin-bottom: 0.5rem; }
+.resday .pure-g { margin-bottom: 0.5rem; }
+.resday a { font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 1.2em; text-decoration: none; color:#292929; line-height: 0.5rem; font-weight: 500; }
+
+.resday .wrapper {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+}
+
+.resday .newsbox {
+  margin-bottom: 1.0rem;
+  background-color: #ffffff;
+  /*padding-left: 1.0rem;*/
+}
+
+.resday .newsimage {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  /*margin-top: 0.5rem;*/
+}
+
+.resday .newsimage img {
+  position: absolute;
+  left:50%;
+  top:50%;
+  height: 100%;
+  width: auto;
+  transform: translate(-50%,-50%);
+}
+
+.resday .newsimage img.portrait {
+  width: 100%;
+  height: auto;
+}
+
+.resday .newsbody {
+  padding-left: 1.0rem;
+  padding-right: 1.0rem;
+}
 
 /*
 .wrapper {

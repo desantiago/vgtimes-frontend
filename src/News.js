@@ -98,12 +98,12 @@ class ConnectedNews extends Component {
                 <h1> Noticias del {newsDate.day}-{newsDate.month}-{newsDate.year} </h1>
                 <div>
                 {
-                    news.map( post => {
+                    news.map( (post, index) => {
 
                         if (post.type === "simple") {
                             if (post.mainimage === "no") {
                                 return (
-                                    <div className="newsbox newsbody" key={post.title}>
+                                    <div className="newsbox newsbody" key={post.title+index}>
                                         <div className="footnote">
                                             A las <span className="datefeed"> { post.formattedDate } </span> en <span className="feedname"> {post.nameFeed } </span>
                                         </div>
@@ -118,7 +118,7 @@ class ConnectedNews extends Component {
                             }
                             else {
                                 return (
-                                    <div className="wrapper newsbox" key={post.title}>
+                                    <div className="wrapper newsbox" key={post.title+index}>
                                         <div className="newsimage">
                                             <img src={post.mainimage} alt={post.title} />
                                         </div>
@@ -139,7 +139,7 @@ class ConnectedNews extends Component {
                         }
                         else {
                             return (
-                                <div className="wrapper newsbox" key={post.mainimage}>
+                                <div className="wrapper newsbox" key={"n"+index}>
                                     <div className="newsimage">
                                         <img src={post.mainimage} alt={post.mainimage} />
                                     </div>

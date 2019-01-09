@@ -1,4 +1,4 @@
-import { CHANGE_SELECT_DAY, LOAD_NEWS } from "../constants/action-types";
+import { CHANGE_SELECT_DAY, LOAD_NEWS, CHANGE_PAGE } from "../constants/action-types";
 
 import Model from  '../../model/model';
 let model = new Model();
@@ -6,7 +6,7 @@ const URL = "http://172.16.100.25:8125/";
 
 const apiMiddleware = store => next => action => {
 
-    if (!action.meta || action.meta.type !== 'api') {
+    if (!action.meta || (action.meta.type !== 'api' && action.meta.type !== 'stack')) {
         return next(action);
     }
 
@@ -83,7 +83,6 @@ const apiMiddleware = store => next => action => {
         model.getNewsDay(action.payload.day, action.payload.month, action.payload.year)
         .then( res => {
             //console.log(res);
-
             let newPayload = Object.assign({}, action.payload, {
                 news: res
             });
@@ -91,11 +90,74 @@ const apiMiddleware = store => next => action => {
             store.dispatch({
                 type: action.type,
                 payload: newPayload
-            });        
+            });
 
         })
         .catch( error => {
-            alert(error);
+            console.log(error);
+        });
+
+    }
+    else if (action.type === CHANGE_PAGE) {
+        console.log("Cambiar stack");
+        //console.log(store.getState());
+        let { stack } = store.getState();
+        console.log(stack);
+        //return next(action);
+
+        if (action.payload.status === "add") {
+            stack.push({ day: action.payload.day, month: action.payload.month, year: action.payload.year });
+            window.location.hash = "f"+action.payload.day+""+action.payload.month+""+action.payload.year;
+    
+        }
+        else if (action.payload.status === "remove") {
+            let date = stack.pop();
+
+            if (stack.length > 0) {
+                date = stack[stack.length-1];
+                console.log("Dia que hay que recargar", date);
+            }
+            else {
+                const fdate = new Date();
+                date = {
+                    day: fdate.getDate(),
+                    month: fdate.getMonth()+1,
+                    year: fdate.getFullYear()
+                };
+                console.log("Dia que hay que recargar", date);
+            }
+            //if 
+            //window.location.hash = "f"+date.day+""+date.month+""+date.year;
+
+            model.getNewsDay(date.day, date.month, date.year)
+            .then( res => {
+                console.log(res);
+                let newPayload = {
+                    day: date.day,
+                    month: date.month,
+                    year: date.year,
+                    news: res
+                };
+    
+                store.dispatch({
+                    type: LOAD_NEWS,
+                    payload: newPayload
+                });
+    
+            })
+            .catch( error => {
+                console.log(error);
+            });
+        }
+
+        console.log(stack);
+        let newPayload = Object.assign({}, action.payload, {
+            stack: stack
+        });
+
+        store.dispatch({
+            type: action.type,
+            payload: newPayload
         });
 
     }

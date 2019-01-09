@@ -11,12 +11,14 @@ const mapDispatchToProps = dispatch => {
 
 class ConnectedHeader extends Component {
 
+    /*
     constructor() {
         super();
         this.clickToogleRes = this.clickToogleRes.bind(this);
     }
+    */
 
-    clickToogleRes() {
+    clickToogleRes = () => {
         this.props.toogleRes();
     }
 

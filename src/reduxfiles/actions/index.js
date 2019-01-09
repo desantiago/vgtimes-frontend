@@ -1,10 +1,12 @@
-import { CHANGE_DAY, SELECT_DAY, CHANGE_SELECT_DAY, TOOGLE_RES, LOAD_NEWS } from "../constants/action-types";
+import { CHANGE_DAY, SELECT_DAY, CHANGE_SELECT_DAY, TOOGLE_RES, LOAD_NEWS, CHANGE_PAGE } from "../constants/action-types";
 
+// TODO: remove this function
 export const changeDay = resday => ({
     type: CHANGE_DAY,
     payload: resday
 });
 
+// TODO: remove this function
 export const selectDay = (day, month, year) => ({
     type: SELECT_DAY,
     payload: {
@@ -49,3 +51,15 @@ export const loadNews = (day, month, year, news) => ({
     }
 });
 
+export const changePage = (day, month, year, status) => ({
+    type: CHANGE_PAGE,
+    payload: {
+        day,
+        month,
+        year,
+        status
+    },
+    meta: {
+        type: 'stack'
+    }
+});

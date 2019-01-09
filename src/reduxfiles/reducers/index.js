@@ -1,11 +1,12 @@
-import { CHANGE_DAY, CHANGE_SELECT_DAY, TOOGLE_RES, LOAD_NEWS } from "../constants/action-types";
+import { CHANGE_DAY, CHANGE_SELECT_DAY, TOOGLE_RES, LOAD_NEWS, CHANGE_PAGE } from "../constants/action-types";
 
 const initialState = {
     resday: [],
     resdayDate: {},
     visibleRes: true,
     news: [],
-    newsDate: {}
+    newsDate: {},
+    stack: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,6 +19,8 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, visibleRes : !state.visibleRes };
         case LOAD_NEWS:
             return { ...state, news : action.payload.news, newsDate: { day: action.payload.day, month: action.payload.month, year: action.payload.year } };
+        case CHANGE_PAGE:
+            return { ...state, stack : action.payload.stack };
         default:
             return state;
     }
