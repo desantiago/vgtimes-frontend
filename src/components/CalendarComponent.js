@@ -78,6 +78,7 @@ class CalendarComponent extends React.Component {
                         }`}
                         key={day}
                         onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
+                        onMouseOver={() => this.onDateOver(dateFns.parse(cloneDay))}
                     >
                         <span className="number">{formattedDate}</span>
                         <span className="bg">{formattedDate}</span>
@@ -96,6 +97,11 @@ class CalendarComponent extends React.Component {
     }
 
     onDateClick = day => {
+        //console.log("day selected", day);
+        this.props.onClickDay(day);
+    };
+
+    onDateOver = day => {
         //console.log("day selected", day);
         this.props.onSelectDay(day);
     };

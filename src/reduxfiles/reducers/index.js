@@ -3,7 +3,7 @@ import { CHANGE_DAY, CHANGE_SELECT_DAY, TOOGLE_RES, LOAD_NEWS, CHANGE_PAGE } fro
 const initialState = {
     resday: [],
     resdayDate: {},
-    visibleRes: true,
+    visibleRes: false,
     news: [],
     newsDate: {},
     stack: []

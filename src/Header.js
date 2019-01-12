@@ -25,9 +25,14 @@ class ConnectedHeader extends Component {
     render() {
         return (
             <header className="header__vg">
-                <span>VGTimes</span>
-                <div className="right_side">
-                    <button onClick={this.clickToogleRes}>Ver Resumen</button>
+                <h1>VG Times</h1>
+                <div className="sub">
+                    <div className="currentdate">
+                        12 de Enero del 2019
+                    </div>
+                    <div className="button">
+                        <button onClick={this.clickToogleRes}>Ver Otros Dias</button>
+                    </div>
                 </div>
             </header>
         )
