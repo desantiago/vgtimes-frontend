@@ -16,7 +16,6 @@ export const selectDay = (day, month, year) => ({
     },
     meta: {
         type: 'api',
-        url : 'http://172.16.100.25:8125/'
     }
 });
 

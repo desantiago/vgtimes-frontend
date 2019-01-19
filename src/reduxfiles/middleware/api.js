@@ -1,8 +1,9 @@
 import { CHANGE_SELECT_DAY, LOAD_NEWS, CHANGE_PAGE } from "../constants/action-types";
+import { URL } from './../../Config';
 
 import Model from  '../../model/model';
 let model = new Model();
-const URL = "http://172.16.100.25:8125/";
+//const URL = "http://www.vgtimes.press/";
 
 const apiMiddleware = store => next => action => {
 
@@ -15,8 +16,10 @@ const apiMiddleware = store => next => action => {
         .then( res => {
 
             //console.log(res);
+            // this if's shouldn't be here, it's somenthig I hva to fix in the server
+            var gameList = [];
             if (res.type === "resumen") {
-                var gameList = res.data.map( item => {
+                gameList = res.data.map( item => {
                     item.imagen = URL + item.imagen;
                     return item;
                 });
@@ -24,33 +27,13 @@ const apiMiddleware = store => next => action => {
                 res.data = gameList;
             }
             else {
-                var gameList = res.data.map( item => {                    
+                gameList = res.data.map( item => {                    
                     item.imagen = item.imagen !== 'no' ? URL + "thumb/thumb_"+item.imagen : item.imagen;
                     return item;
                 });
 
                 res.data = gameList;
             }
-
-            //this.props.changeDay(gameList);
-            /*
-            store.dispatch({
-                type : "CHANGE_DAY",
-                payload : gameList
-            });
-            */
-
-            /*
-            store.dispatch({
-                type: action.type,
-                payload: {
-                    day: action.payload.day,
-                    month: action.payload.month,
-                    year: action.payload.year,
-                    resday: gameList
-                }
-            });
-            */
 
             let newPayload = Object.assign({}, action.payload, {
                 resday: res
@@ -61,21 +44,9 @@ const apiMiddleware = store => next => action => {
                 payload: newPayload
             });        
 
-            /*
-            let newPayload = Object.assign({}, action.payload, {
-                resday: gameList
-            });
-
-            let newAction = Object.assign({}, action, {
-                payload : newPayload
-            });
-
-            console.log(newAction);
-            store.dispatch(newAction);
-            */
         })
         .catch( error => {
-            alert(error);
+            console.log(error);
         });
     }
     else if (action.type === LOAD_NEWS) {
@@ -99,10 +70,9 @@ const apiMiddleware = store => next => action => {
 
     }
     else if (action.type === CHANGE_PAGE) {
-        console.log("Cambiar stack");
         //console.log(store.getState());
         let { stack } = store.getState();
-        console.log(stack);
+        // console.log(stack);
         //return next(action);
 
         if (action.payload.status === "add") {
@@ -115,7 +85,6 @@ const apiMiddleware = store => next => action => {
 
             if (stack.length > 0) {
                 date = stack[stack.length-1];
-                console.log("Dia que hay que recargar", date);
             }
             else {
                 const fdate = new Date();
@@ -124,10 +93,7 @@ const apiMiddleware = store => next => action => {
                     month: fdate.getMonth()+1,
                     year: fdate.getFullYear()
                 };
-                console.log("Dia que hay que recargar", date);
             }
-            //if 
-            //window.location.hash = "f"+date.day+""+date.month+""+date.year;
 
             model.getNewsDay(date.day, date.month, date.year)
             .then( res => {
@@ -150,7 +116,7 @@ const apiMiddleware = store => next => action => {
             });
         }
 
-        console.log(stack);
+        // console.log(stack);
         let newPayload = Object.assign({}, action.payload, {
             stack: stack
         });
@@ -161,46 +127,6 @@ const apiMiddleware = store => next => action => {
         });
 
     }
-
-/*
-    console.log("ACTION: ",action);
-    //this is an api request
-    const {url} = action.meta;
-    //const fetchOptions = Object.assign();
-    var last = `resdia/res-${action.payload.year}${action.payload.month}${action.payload.day}.json`;
-
-    fetch(url+last, {
-        headers: {
-            'Access-Control-Allow-Origin':'*'
-        }
-    })
-    .then( response => {
-        console.log('ya en la respuesta');
-        /*
-        if (!response.ok) {
-            //throw Error(response.statusText);
-            return Promise.reject({ error: response.statusText, status: response.status})
-        }
-        // Read the response as json.
-        */
-/*
-        return response.json();
-    })
-    .then( responseAsJson => {
-        // Do stuff with the JSON
-        console.log(responseAsJson);
-
-        store.dispatch({
-            type : "CHANGE_DAY",
-            payload : responseAsJson
-        });
-        //dispatch(changeDay(resday))
-    })
-    .catch(function(error) {
-        console.log('Looks like there was a problem: \n', error);
-        //return Promise.reject({error: error})
-    });
-*/
 
 }
 

@@ -1,10 +1,12 @@
+import { URL } from './../Config';
 
 class Model {
     constructor() {
-        this.baseURL = "http://172.16.100.25:8125/";
+        this.baseURL = URL;
     }
 
     genericFetch(url) {
+        console.log(`${this.baseURL}${url}`);
         return fetch(`${this.baseURL}${url}`, {
             //mode: 'no-cors' // 'cors' by default
             headers: {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { loadNews } from './reduxfiles/actions/index';
+import { URL } from './Config';
 
 const mapStateToProps = state => {
     return { news: state.news, newsDate: state.newsDate }
@@ -21,8 +22,6 @@ class ConnectedNews extends Component {
 
     render() {
         let { news, newsDate } = this.props;
-        //console.log(day, month, year);
-        //console.log(news);
 
         let tnews = []
         for (var i = 0; i < news.length; i++) {
@@ -37,61 +36,15 @@ class ConnectedNews extends Component {
                 let p = post;
                 if (post.type === 'simple') {
                     if (post.nameFeed !== "universo-nintendo" && post.nameFeed !== "levelup") {
-                        p.mainimage = "http://www.vgtimes.press/"+p.mainimage
+                        p.mainimage = URL+p.mainimage
                     }
                 }
                 else {
-                    p.mainimage = "http://www.vgtimes.press/"+p.mainimage
+                    p.mainimage = URL+p.mainimage
                 }
 
                 return p;
         });
-
-        /*
-        <div className="imgcont">
-            <img src={post.mainimage} alt={post.title} />
-        </div>
-        */
-
-        /*
-       <div className="pure-g" key={post.title}>
-
-       <div className="wrapper">
-           <div className="newsimage">
-               <img src={post.mainimage} alt={post.title} />
-           </div>
-           <div>
-               <p>
-                   { post.description }
-               </p>
-               <div className="footnote">
-                   <span className="feedname"> {post.nameFeed } </span><span className="datefeed"> { post.formattedDate } </span>
-               </div>
-           </div>
-       </div>
-
-       <div className="pure-u-md-1-5 pure-u-sm-1-1 movil100">
-           <div className="newsimage">
-               <img src={post.mainimage} alt={post.title} />
-           </div>
-       </div>
-
-       <div className="pure-u-md-4-5 pure-u-sm-1-1">
-           <h2>
-               { post.title }
-           </h2>
-
-           <div className="textblock">
-               <p className="textcont-noimage">
-                   { post.description }
-               </p>
-               <div className="footnote">
-                   <span className="feedname"> {post.nameFeed } </span><span className="datefeed"> { post.formattedDate } </span>
-               </div>
-           </div>
-       </div>
-        </div>
-        */
 
         return (
             <div className="news-container" >
@@ -101,14 +54,15 @@ class ConnectedNews extends Component {
                     news.map( (post, index) => {
 
                         if (post.type === "simple") {
-                            if (post.mainimage === "no") {
+                            console.log(post.title, "---", post.mainimage, );
+                            if (post.mainimage === "no" || post.mainimage.endsWith('no') ) {
                                 return (
                                     <div className="newsbox newsbody" key={post.title+index}>
                                         <div className="footnote">
                                             A las <span className="datefeed"> { post.formattedDate } </span> en <span className="feedname"> {post.nameFeed } </span>
                                         </div>
                                         <h2>
-                                            { post.title }
+                                            <a href={post.link}>{ post.title }</a>
                                         </h2>
                                         <p>
                                             { post.description }
@@ -127,7 +81,7 @@ class ConnectedNews extends Component {
                                                 A las <span className="datefeed"> { post.formattedDate } </span> en <span className="feedname"> {post.nameFeed } </span>
                                             </div>
                                             <h2>
-                                                { post.title }
+                                                <a href={post.link}>{ post.title }</a>
                                             </h2>
                                             <p>
                                                 { post.description }
@@ -138,34 +92,48 @@ class ConnectedNews extends Component {
                             }
                         }
                         else {
-                            return (
-                                <div className="wrapper newsbox" key={"n"+index}>
-                                    <div className="newsimage">
-                                        <img src={post.mainimage} alt={post.mainimage} />
+                            if (post.mainimage === "no") {
+                                return (
+                                    <div className="newsbox newsbody" key={post.title+index}>
+                                        <div className="footnote">
+                                            A las <span className="datefeed"> { post.formattedDate } </span> en <span className="feedname"> {post.nameFeed } </span>
+                                        </div>
+                                        <h2>
+                                            <a href={post.link}>{ post.title }</a>
+                                        </h2>
+                                        <p>
+                                            { post.description }
+                                        </p>
                                     </div>
-                                    <div className="newsbody">
-                                        <h2>{ post.maingame }</h2>
-                                        {
-                                            post.feedList.map( feed => {
-                                                return (
-                                                    <div key={feed.title}>
-                                                        <a href={feed.link}>{feed.title}</a><span className="feedname"> {feed.nameFeed } </span>
-                                                    </div>
-                                                )
-                                            } )
-                                        }
+                                )
+                            }
+                            else {
+                                return (
+                                    <div className="wrapper newsbox" key={"n"+index}>
+                                        <div className="newsimage">
+                                            <img src={post.mainimage} alt={post.mainimage} />
+                                        </div>
+                                        <div className="newsbody">
+                                            <h2>{ post.maingame }</h2>
+                                            {
+                                                post.feedList.map( feed => {
+                                                    return (
+                                                        <div key={feed.title}>
+                                                            <a href={feed.link}>{feed.title}</a><span className="feedname"> {feed.nameFeed } </span>
+                                                        </div>
+                                                    )
+                                                } )
+                                            }
+                                        </div>
                                     </div>
-                                </div>
-                            )
+                                )
+                            }
                         }
-
                     })
-                    
                 }
                 </div>
             </div>
         )
-
     }
 }
 

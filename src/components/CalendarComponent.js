@@ -98,12 +98,16 @@ class CalendarComponent extends React.Component {
 
     onDateClick = day => {
         //console.log("day selected", day);
-        this.props.onClickDay(day);
+        if (day <= new Date()) {
+            this.props.onClickDay(day);
+        }
     };
 
     onDateOver = day => {
         //console.log("day selected", day);
-        this.props.onSelectDay(day);
+        if (day <= new Date()) {
+            this.props.onSelectDay(day);
+        }
     };
 
     nextMonth = () => {

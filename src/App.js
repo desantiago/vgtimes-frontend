@@ -9,15 +9,6 @@ import { changePage } from './reduxfiles/actions/index';
 //import logo from './logo.svg';
 import './App.css';
 
-/*
-class EventsWrapper extends Component {
-  propTypes = {
-    onHashChange: React.PropTypes.func
-  }
-
-}
-*/
-
 const mapDispatchToProps = dispatch => {
   return {
       changePage: (day, month, year, status) => dispatch(changePage(day, month, year, status))
@@ -26,15 +17,7 @@ const mapDispatchToProps = dispatch => {
 
 class ConnectedApp extends Component {
 
-  /*
-  constructor() {
-    super();
-    console.log("constructor");
-  }
-  */
-
   componentDidMount() {
-    console.log("-----");
     document.onmouseover = () => {
       window.innerDocClick = true;
     }
@@ -52,21 +35,6 @@ class ConnectedApp extends Component {
         this.props.changePage(0,0,0,"remove");
       }
     }
-
-
-    /*
-    window.addEventListener("hashchange", function(e){ 
-      if (window.innerDocClick) {
-
-      }
-      else {
-        //alert("aqui");
-        console.log('hashchange1', window.location.hash);
-        this.props.changePage(0,0,0,"remove");
-        e.preventDefault();
-      }
-    });
-    */
   }
 
   render() {
