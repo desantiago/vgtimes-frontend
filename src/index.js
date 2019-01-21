@@ -6,8 +6,6 @@ import { Provider } from 'react-redux';
 import store from './reduxfiles/store/index';
 import * as serviceWorker from './serviceWorker';
 
-// (/c/Users/sistemas.MYERS/.ssh/id_rsa)
-
 ReactDOM.render(
     <Provider store={store}>
         <App />
